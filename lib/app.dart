@@ -1,5 +1,3 @@
-import 'dart:nativewrappers/_internal/vm/lib/core_patch.dart';
-
 import 'package:flutter/material.dart';
 import 'package:task_manager/ui/screens/splash_screen.dart';
 import 'package:task_manager/ui/utility/app_colors.dart';
@@ -15,32 +13,35 @@ class TaskManagerApp extends StatelessWidget {
     );
   }
 
-
   ThemeData lightTheme() {
     return ThemeData(
+
+      textTheme: const TextTheme(
+        titleLarge: TextStyle(
+          color: Colors.black,
+          fontWeight: FontWeight.bold,
+          fontSize: 30
+
+        ),
+      ),
+
       inputDecorationTheme: InputDecorationTheme(
         fillColor: Colors.white,
         filled: true,
         hintStyle: TextStyle(color: Colors.grey.shade400),
-        // contentPadding: EdgeInsets.symmetric(vertical: 8),
         border: const OutlineInputBorder(
           borderSide: BorderSide.none,
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.appColor,
+          backgroundColor: AppColors.themeColor,
           foregroundColor: AppColors.white,
-          // fixedSize: Size.fromWidth(double.),
-          //   fixedSize: const Size.fromWidth(double.maxFinite)
-
-
+          fixedSize: const Size.fromWidth(double.maxFinite),
+          padding: const EdgeInsets.symmetric(vertical: 12),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         ),
       ),
     );
   }
-
-
 }
-
-
