@@ -17,7 +17,7 @@ final TextEditingController _descriptionTEController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: profileAppBar(),
+      appBar: profileAppBar(context),
       body:  BackgroundWidget(
         child: SingleChildScrollView(
           child: Padding(
