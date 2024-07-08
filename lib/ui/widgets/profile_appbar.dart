@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager/ui/controllers/auth_controller.dart';
+import 'package:task_manager/ui/screens/auth/sign_in_screen.dart';
 import 'package:task_manager/ui/screens/update_profile_screen.dart';
 
 import '../utility/app_colors.dart';
@@ -8,7 +10,7 @@ AppBar profileAppBar(context, [bool fromUpdateProfile = false]) {
     backgroundColor: AppColors.themeColor,
     title: GestureDetector(
       onTap: () {
-        if(fromUpdateProfile){
+        if (fromUpdateProfile) {
           return;
         }
         Navigator.push(
@@ -18,16 +20,16 @@ AppBar profileAppBar(context, [bool fromUpdateProfile = false]) {
           ),
         );
       },
-      child: const Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Dummy Name',
-            style: TextStyle(fontSize: 16, color: Colors.white),
+            AuthController.userData.fullName,
+            style: const TextStyle(fontSize: 16, color: Colors.white),
           ),
           Text(
-            'email@email.com',
-            style: TextStyle(
+            AuthController.userData.email ?? ' ',
+            style: const TextStyle(
                 fontSize: 12, color: Colors.white, fontWeight: FontWeight.w400),
           )
         ],
@@ -40,6 +42,22 @@ AppBar profileAppBar(context, [bool fromUpdateProfile = false]) {
           // child: NetworkCachedImage(url: ''),
           ),
     ),
-    actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.logout))],
+    actions: [
+      _onTapLogOutButton(context)
+    ],
   );
+}
+
+IconButton _onTapLogOutButton(context) {
+  return IconButton(
+      onPressed: () async{
+        await AuthController.clearAllData();
+
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => const SignInScreen()),
+            (context) => false);
+      },
+      icon: const Icon(Icons.logout,color: Colors.white,),
+    );
 }

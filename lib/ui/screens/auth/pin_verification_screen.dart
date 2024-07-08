@@ -120,10 +120,6 @@ class _PinVerificationScreenState extends State<PinVerificationScreen> {
 
   @override
   void dispose() {
-    if (_pinTEController == null) {
-      _pinTEController.dispose();
-    }
-
     super.dispose();
   }
 }

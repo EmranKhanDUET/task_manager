@@ -94,10 +94,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         if (value?.trim().isEmpty ?? true) {
                           return 'Enter your mobile';
                         }
-                        // if(AppConstants.mobileRegEx.hasMatch(value!)==false){
-                        //
-                        //   return 'Enter a valid mobile number';
-                        // }
+
+                        if (AppConstants.mobileRegEx.hasMatch(value!) ==
+                            false) {
+                          return 'Enter a valid mobile number';
+                        }
+
                         return null;
                       },
                       decoration: const InputDecoration(hintText: 'Mobile'),
@@ -131,7 +133,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     Visibility(
                       visible: _registrationInProgress == false,
                       replacement:
-                          Center(child: const CircularProgressIndicator()),
+                          const Center(child: CircularProgressIndicator()),
                       child: ElevatedButton(
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
@@ -196,6 +198,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
         snackBarMessage(context, 'Registration Successful');
       }
       _clearTextFormFields();
+      _onTapSignInButton();
+
     } else {
       if (mounted) {
         snackBarMessage(
