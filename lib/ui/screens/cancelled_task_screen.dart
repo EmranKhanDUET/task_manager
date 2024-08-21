@@ -51,7 +51,7 @@ class _CancelledTaskScreenState extends State<CancelledTaskScreen> {
                     itemCount: cancelledTaskList.length,
                     itemBuilder: (context, index) {
                       return TaskItem(
-                        taskModel: cancelledTaskList[index],
+                        taskModel: cancelledTaskList[index], onUpdateTask: () {_getCancelledTask();  },
                       );
                     },
                   ),

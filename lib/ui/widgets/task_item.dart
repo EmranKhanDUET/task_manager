@@ -7,9 +7,11 @@ import '../../data/network_caller/network_caller.dart';
 import '../../data/utility/urls.dart';
 
 class TaskItem extends StatefulWidget {
-  const TaskItem({super.key, required this.taskModel});
+  const TaskItem(
+      {super.key, required this.taskModel, required this.onUpdateTask});
 
   final TaskModel taskModel;
+  final VoidCallback onUpdateTask;
 
   @override
   State<TaskItem> createState() => _TaskItemState();
@@ -47,10 +49,15 @@ class _TaskItemState extends State<TaskItem> {
                 ButtonBar(
                   children: [
                     Visibility(
-                      visible: _deleteInProgress==false,
-                      replacement: const Center(child: CircularProgressIndicator(),),
+                      visible: _deleteInProgress == false,
+                      replacement: const Center(
+                        child: CircularProgressIndicator(),
+                      ),
                       child: IconButton(
-                          onPressed: () {}, icon: const Icon(Icons.delete)),
+                          onPressed: () {
+                            _deleteTask();
+                          },
+                          icon: const Icon(Icons.delete)),
                     ),
                     IconButton(onPressed: () {}, icon: const Icon(Icons.edit)),
                   ],
@@ -69,10 +76,11 @@ class _TaskItemState extends State<TaskItem> {
       setState(() {});
     }
 
-    NetworkResponse response = await NetworkCaller.getRequest(Urls.deleteTask(widget.taskModel.sId!));
+    NetworkResponse response =
+        await NetworkCaller.getRequest(Urls.deleteTask(widget.taskModel.sId!));
 
     if (response.isSuccess) {
-
+      widget.onUpdateTask();
     } else {
       if (mounted) {
         snackBarMessage(
@@ -87,5 +95,4 @@ class _TaskItemState extends State<TaskItem> {
       setState(() {});
     }
   }
-
 }

@@ -51,7 +51,7 @@ class _InProgressTaskScreenState extends State<InProgressTaskScreen> {
                     itemCount: inProgressTaskList.length,
                     itemBuilder: (context, index) {
                       return TaskItem(
-                        taskModel: inProgressTaskList[index],
+                        taskModel: inProgressTaskList[index], onUpdateTask: () {_getInProgressTask();  },
                       );
                     },
                   ),
